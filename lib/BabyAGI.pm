@@ -79,7 +79,7 @@ sub pinecone {
     return $self->{pinecone};
 }
 
-sub openai_call {
+sub generate_ideas {
     my ( $self, %args ) = @_;
 
     my $prompt      = $args{prompt};
@@ -128,7 +128,7 @@ sub openai_call {
     }
 }
 
-sub get_ada_embedding {
+sub study_text {
     my ( $self, $text ) = @_;
 
     $text =~ s/\n/ /g;
@@ -152,7 +152,7 @@ sub memorize {
     my $result_id       = "result_$task->{task_id}";
 
     # get vector of the actual result extracted from the dictionary
-    my $vector = $self->get_ada_embedding( $enriched_result->{data} );
+    my $vector = $self->study_text( $enriched_result->{data} );
 
     $self->pinecone->upsert_vector(
         {
@@ -169,7 +169,7 @@ sub recall {
     my $query = $args{query};
     my $n     = $args{n} || 5;
 
-    my $query_embedding = $self->get_ada_embedding($query);
+    my $query_embedding = $self->study_text($query);
 
     my $results = $self->pinecone->query(
         {

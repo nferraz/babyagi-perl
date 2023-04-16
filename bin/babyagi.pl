@@ -39,7 +39,7 @@ This result was based on this task description: $task_description. These are inc
 Based on the result, create new tasks to be completed by the AI system that do not overlap with incomplete tasks.
 Return the tasks as an array.
 EOF
-    my $response  = $babyagi->openai_call( prompt => $prompt );
+    my $response  = $babyagi->generate_ideas( prompt => $prompt );
     my @new_tasks = split( "\n", $response );
     return map { { task_name => $_ } } @new_tasks;
 }
@@ -56,7 +56,7 @@ Do not remove any tasks. Return the result as a numbered list, like:
 #. Second task
 Start the task list with number $next_task_id.
 EOF
-    my $response  = $babyagi->openai_call( prompt => $prompt );
+    my $response  = $babyagi->generate_ideas( prompt => $prompt );
     my @new_tasks = split( "\n", $response );
     @task_list = ();
     foreach my $task_string (@new_tasks) {
@@ -73,7 +73,7 @@ You are an AI who performs one task based on the following objective: $objective
 Take into account these previously completed tasks: $context\n.
 Your task: $task\nResponse:
 EOF
-    return $babyagi->openai_call( prompt => $prompt, temperature => 0.7, max_tokens => 2000 );
+    return $babyagi->generate_ideas( prompt => $prompt, temperature => 0.7, max_tokens => 2000 );
 }
 
 sub context_agent {
