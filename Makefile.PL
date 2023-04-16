@@ -7,8 +7,8 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     NAME          => 'BabyAGI',
     AUTHOR        => 'Nelson Ferraz <nferraz@gmail.com>',
-    VERSION_FROM  => 'bin/babyagi.pl',
-    ABSTRACT      => 'BabyAGI in Perl',
+    VERSION_FROM  => 'lib/BabyAGI.pm',
+    ABSTRACT_FROM => 'lib/BabyAGI.pm',
     LICENSE       => 'artistic_2',
     PREREQ_PM     => {
         'Dotenv'                    => 0,
