@@ -141,16 +141,23 @@ babyagi.pl - An AI-driven task management system
 
 =head1 SYNOPSIS
 
-perl babyagi.pl
+  perl babyagi_script.pl [options]
+
+Options:
+
+  --api-key=<openai_api_key>         Your OpenAI API key
+  --model=<openai_api_model>         OpenAI API model, e.g., 'gpt-3.5-turbo'
+  --pinecone-key=<pinecone_api_key>  Your Pinecone API key
+  --pinecone-env=<pinecone_env>      Pinecone environment
+  --table-name=<table_name>          Pinecone table name
+  --objective=<objective>            Objective of the BabyAGI instance
+  --initial-task=<initial_task>      Initial task to start with
 
 =head1 DESCRIPTION
 
-This Perl script implements an AI-driven task management system that
-utilizes OpenAI's GPT-powered language models and Pinecone for storage
-and retrieval.
-
-The script creates, prioritizes, and executes tasks based on the given
-objective and maintains a task list throughout its execution.
+This script is a command-line interface for the BabyAGI Perl module. It
+demonstrates how to use the BabyAGI module to manage, prioritize, and
+execute tasks using OpenAI and Pinecone.
 
 The script includes the following subroutines:
 
@@ -166,22 +173,10 @@ The script includes the following subroutines:
 
 =back
 
-=head1 REQUIREMENTS
-
-To run this script, you will need:
-
-=over
-
-=item * L<OpenAPI::Client::OpenAI>
-
-=item * L<OpenAPI::Client::Pinecone>
-
-=back
-
 =head1 CONFIGURATION
 
-Before running the script, you will need to set several environment
-variables, including:
+Before running the script, it's recommended to set the following
+environment variables:
 
 =over
 
@@ -203,5 +198,6 @@ variables, including:
 
 =head1 AUTHOR
 
-Perl version by Nelson Ferraz E<lt>nferraz@gmail.comE<gt>, based on
-@yoheinakajima's L<babyagi|https://github.com/yoheinakajima/babyagi/>.
+Perl version by Nelson Ferraz E<lt>nferraz@gmail.comE<gt>,
+based on L<@yoheinakajima|https://twitter.com/yoheinakajima>'s
+L<babyagi|https://github.com/yoheinakajima/babyagi/>.

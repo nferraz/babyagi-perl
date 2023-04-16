@@ -11,7 +11,7 @@ use Dotenv;
 use OpenAPI::Client::OpenAI;
 use OpenAPI::Client::Pinecone;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 # Load environment variables from .env file
 Dotenv->load();
@@ -183,3 +183,76 @@ sub recall {
 }
 
 1;
+
+__END__
+
+=head1 NAME
+
+BabyAGI - A Perl-based AI for managing and executing tasks
+
+=head1 SYNOPSIS
+
+  use BabyAGI;
+
+  my $babyagi = BabyAGI->new(
+      OPENAI_API_KEY       => $api_key,
+      OPENAI_API_MODEL     => $model,
+      PINECONE_API_KEY     => $pinecone_key,
+      PINECONE_ENVIRONMENT => $pinecone_env,
+      TABLE_NAME           => $table_name,
+      OBJECTIVE            => $objective,
+      INITIAL_TASK         => $initial_task,
+  );
+
+  # Generate ideas using OpenAI API
+  my $response = $babyagi->generate_ideas(prompt => $prompt);
+
+  # Store task information and its result in Pinecone
+  my $enriched_result = $babyagi->memorize(task => $task, result => $result);
+
+  # Retrieve related tasks from Pinecone based on a given query
+  my $response_data = $babyagi->recall(query => $query, n => 5);
+
+=head1 DESCRIPTION
+
+BabyAGI is a Perl-based AI system for managing, prioritizing, and
+executing tasks. It leverages OpenAI's GPT-3.5-turbo (or potentially
+GPT-4) for natural language processing and Pinecone for knowledge storage.
+
+=head1 METHODS
+
+=head2 new
+
+  my $babyagi = BabyAGI->new(%options);
+
+Creates a new BabyAGI instance. Options should include OPENAI_API_KEY,
+OPENAI_API_MODEL, PINECONE_API_KEY, PINECONE_ENVIRONMENT, TABLE_NAME,
+OBJECTIVE, and INITIAL_TASK.
+
+=head2 generate_ideas
+
+  my $response = $babyagi->generate_ideas(%args);
+
+Generates ideas using OpenAI's API based on a given prompt. Arguments
+include prompt, model, temperature, and max_tokens.
+
+=head2 memorize
+
+  my $enriched_result = $babyagi->memorize(%args);
+
+Stores task information and its result in Pinecone. Arguments include
+task and result.
+
+=head2 recall
+
+  my $response_data = $babyagi->recall(%args);
+
+Retrieves related tasks from Pinecone based on a given query. Arguments
+include query and n (the number of results to retrieve).
+
+
+=head1 AUTHOR
+
+Perl version by Nelson Ferraz (L<@nferraz|https://twitter.com/nferraz>),
+based on L<@yoheinakajima|https://twitter.com/yoheinakajima>'s
+L<babyagi|https://github.com/yoheinakajima/babyagi/>.
